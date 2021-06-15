@@ -112,7 +112,7 @@ split_image(image) = x {
 # helper rule to retrieve the digest from notary using notary-wrapper
 get_digest(image) = digest {
 	wrapperRootCa := "/etc/certs/notary/root-ca.crt"
-	notaryWrapperURL = "https://notary-wrapper-svc.opa.svc:4445/list"
+	notaryWrapperURL = "https://notary-wrapper-svc.opa.svc:4445/signy"
 	parts := split_image(image)
 	body := {
 		"GUN": parts.gun,
@@ -121,6 +121,6 @@ get_digest(image) = digest {
 	}
 
 	headers_json := {"Content-Type": "application/json"}
-	output := http.send({"method": "post", "url": notaryWrapperURL, "headers": headers_json, "body": body, "tls_ca_cert_file": wrapperRootCa})
+	output := http.send({"method": "get", "url": notaryWrapperURL, "headers": headers_json, "body": body, "tls_ca_cert_file": wrapperRootCa})
 	digest := output.body.Digest
 }

@@ -32,7 +32,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: true
           runAsUser: 10000
-        command: ["/notary/notary-wrapper"]
+        command: ["/notary/signy-wrapper"]
         ports:
         - name: https-wrapper
           containerPort: 4445
